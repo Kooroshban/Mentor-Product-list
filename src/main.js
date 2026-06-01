@@ -68,36 +68,28 @@ function creatList(foodlist) {
 //? ضخیره اردرمون در یک ارایه . فعلا بدون سر شماری تعداد غذا ها . و امکان تکرار ی غذا وجود دارد
 const pushInList = (foodName, foodPrice, quantity) => {
   const food = {
-    foodName,
-    foodPrice,
-    quantity,
+    obName:`${foodName}`,
+    obPrice:`${foodPrice}`,
+    obQuantity:`${quantity}`,
   };
-  console.log("foodName", "---->", food.foodName);
-  console.log("foodPrice", "---->", food.foodPrice);
-  const existingFood = orderList.find((item) => item.name === food.foodName);
+  console.log("foodName", "---->", food.obName);
+  console.log("foodPrice", "---->", food.obPrice);
+  console.log("foodQuantity", "---->", food.obQuantity);
+  const existingFood = orderList.find((item) => item.name === food.obName);
   if (existingFood) {
-    existingFood.quantity++;
+    existingFood.obQuantity++;
   } else {
     orderList.push(food);
-    orderList.quantity = 1;
+    orderList.obQuantity = 1;
   }
 };
-
-const addMeale = (fristButton, secondButton, foodName, foodPrice) => {
-  //* هاید شدن باتن اولیه و ظاهر شدن بانت داینامیک ثانویه
-  fristButton.style.display = "none";
-  secondButton.classList.remove("hidden");
-  //* کال کردن فانکشن برای ذخیره اسم و قیمت غذا در ارایه
-  pushInList(foodName, foodPrice,1);
-
+const creatCart = () => {
   //* در این مرحله توقع میرود که لیست اردر ها در قسمت اردر لیس نمایش داره شود. ولی کار نمیکنه
   orderLstEl.innerHTML = "";
   orderList.forEach((order) => {
-    const foodNameM = order.foodName;
-    const foodPriceM = order?.foodPrice;
-    const quantityM = order?.quantity;
-    console.log("jf", foodNameM);
-    console.log("jf", foodPriceM);
+    const foodNameM = order.obName;
+    const foodPriceM = order?.obPrice;
+    const quantityM = order?.obQuantity;
 
     orderLstEl.innerHTML += `<li class="flex flex-col gap-1">
             <p class="font-medium">${foodNameM}</p>
@@ -112,12 +104,22 @@ const addMeale = (fristButton, secondButton, foodName, foodPrice) => {
   });
 };
 
+const addMeale = (fristButton, secondButton, foodName, foodPrice) => {
+  //* هاید شدن باتن اولیه و ظاهر شدن بانت داینامیک ثانویه
+  fristButton.style.display = "none";
+  secondButton.classList.remove("hidden");
+  //* کال کردن فانکشن برای ذخیره اسم و قیمت غذا در ارایه
+  pushInList(foodName, foodPrice,1);
+  creatCart();
+
+};
+
 function baceMode(fristButton, secondButton, foodName, foodPrice) {
   secondButton.classList.add("hidden");
   fristButton.style.display = "flex";
 }
 
-//! قسمت کلیک کردن دکمه (اونت)
+//! قسمت کلیک کردن دکمه (ایونت)
 document.querySelectorAll("section").forEach((stion) => {
   const btn = stion.querySelector(".fbtn");
   const dynamicBtn = stion.querySelector(".secon_btn");
@@ -138,12 +140,19 @@ document.querySelectorAll("section").forEach((stion) => {
     console.log(count);
     addMeale(btn, dynamicBtn, foodName, foodPrice);
     console.log(orderList);
+
+
+
   });
 
   plus_btnEl?.addEventListener("click", () => {
+
+
+
     ++quantity;
     requstEl.textContent = quantity;
     pushInList(foodName, foodPrice,quantity);
+    creatCart();
   });
   min_btnEl?.addEventListener("click", () => {
     if (quantity > 1) {
@@ -151,7 +160,7 @@ document.querySelectorAll("section").forEach((stion) => {
       requstEl.textContent = quantity;
     } else {
       baceMode(btn, dynamicBtn);
-      pushInList(foodName, foodPrice,quantity);
+      pushInList(foodName, foodPrice);
     }
   });
 });
@@ -162,9 +171,15 @@ document.querySelectorAll("section").forEach((stion) => {
   const food = {
     foodName: `${foodName}`,
     foodPrice: `${foodPrice}`,
-  };
-  console.log("foodName", "---->", food.foodName);
-  console.log("foodPrice", "---->", food.foodPrice);
+    };
+    console.log("foodName", "---->", food.foodName);
+    console.log("foodPrice", "---->", food.foodPrice);
+    
+    orderList.pop(food);
+    };*/
+    
 
-  orderList.pop(food);
-};*/
+
+
+    
+    console.log(orderList);
