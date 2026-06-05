@@ -1,4 +1,5 @@
 import "./style.css";
+import { v4 as uuidv4 } from "uuid";
 
 //! global state
 //? static state
@@ -68,6 +69,7 @@ function creatList(foodlist) {
 //? ضخیره اردرمون در یک ارایه . فعلا بدون سر شماری تعداد غذا ها . و امکان تکرار ی غذا وجود دارد
 const pushInList = (foodName, foodPrice, quantity) => {
   const food = {
+    id: Math.random(),
     obName:`${foodName}`,
     obPrice:`${foodPrice}`,
     obQuantity:`${quantity}`,
@@ -75,12 +77,22 @@ const pushInList = (foodName, foodPrice, quantity) => {
   console.log("foodName", "---->", food.obName);
   console.log("foodPrice", "---->", food.obPrice);
   console.log("foodQuantity", "---->", food.obQuantity);
-  const existingFood = orderList.find((item) => item.name === food.obName);
+
+  const existingFood = orderList.some((item) => {
+    console.log(item.obName);
+    console.log(food.obName);
+    
+    return item.obName === food.obName});
+  console.log("existingFood", "---->", existingFood);
+
   if (existingFood) {
-    existingFood.obQuantity++;
+    
+    // existingFood.obQuantity++;
+    console.log("hi");
   } else {
     orderList.push(food);
-    orderList.obQuantity = 1;
+    // orderList.obQuantity = 1;
+    console.log("hello");
   }
 };
 const creatCart = () => {
