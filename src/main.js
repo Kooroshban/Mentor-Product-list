@@ -192,6 +192,6 @@ document.querySelectorAll("section").forEach((stion) => {
     
 
 
-
+//  slam
     
     console.log(orderList);
